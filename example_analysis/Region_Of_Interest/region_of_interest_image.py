@@ -34,6 +34,9 @@ height, width = image.shape[:2] # 이미지 높이, 너비
 
 # 사다리꼴 모형의 Points
 vertices = np.array([[(50,height),(width/2-45, height/2+60), (width/2+45, height/2+60), (width-50,height)]], dtype=np.int32)
+"""
+사다리꼴 모형 : np.array([[왼쪽아래,왼쪽위,오른쪽위,오른쪽아래]],dtype)
+"""
 roi_img = region_of_interest(image, vertices, (0,0,255)) # vertices에 정한 점들 기준으로 ROI 이미지 생성
 
 mark = np.copy(roi_img) # roi_img 복사
