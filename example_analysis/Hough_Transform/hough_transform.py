@@ -31,7 +31,7 @@ def draw_lines(img, lines, color=[0, 0, 255], thickness=2): # 선 그리기
         for x1,y1,x2,y2 in line:
             cv2.line(img, (x1, y1), (x2, y2), color, thickness)
 
-def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap): # 허프 변환
+def hough_lines(img, rho, theta, threshold, min_line_len, max_line_gap): # 허프 변환 #직선출력
 """
 image = 8bit. 즉 1채널인 흑백이미지를 넣어야함. 보통 Canny를 통해 edge를 찾은 후에 이 함수를 적용하므로 이미 흑백으로 변환된 상태
 
@@ -53,7 +53,18 @@ Hough Transform에서는 이 교차점이 하나씩 증가할때마다 +1을 해
 
 output은 검출된 직선 만큼의 ρ와 θ이다. 
 """
-    lines = cv2.HoughLinesP(img, rho, theta, threshold, np.array([]), minLineLength=min_line_len, maxLineGap=max_line_gap)
+    lines = cv2.HoughLinesP(img, rho, theta, threshold, np.array([]), minLineLength=min_line_len, maxLineGap=max_line_gap) #선분출력
+"""
+HoughLines 뒤에 P 가 하나 더 붙은 함수인데, 이 P는  probabilistic 즉 확률적이라는 말이 포함된 허프 변환이다. 
+
+np.array([]) 부분은 무시해도 된다. 그냥 빈 array이니 무시.
+
+min_line_length = 말그대로 선의 최소 길이다. 너무 짧은 선은 검출하기 싫다면 이 값을 높이면 된다. 물론 단위는 픽셀.
+
+max_line_gap = 선 위의 점들 사이 최대 거리이다. 즉 점 사이의 거리가 이 값보다 크면 나와는 다른 선으로 간주하겠다 라는 것.  
+
+output은 선분의 시작점과 끝점에 대한 좌표 값이다.
+"""
     line_img = np.zeros((img.shape[0], img.shape[1], 3), dtype=np.uint8)
     draw_lines(line_img, lines)
 
