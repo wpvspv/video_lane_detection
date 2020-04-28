@@ -17,7 +17,7 @@ gray_img = grayscale(image) # 흑백이미지로 변환
     
 blur_img = gaussian_blur(gray_img, 3) # Blur 효과 # 홀수만 가능하고 수가 클수록 edge가 적어짐
         
-canny_img = canny(blur_img, 70, 210) # Canny edge 알고리즘 # 1:2나 1:3 비율을 추천함
+canny_img = canny(blur_img, 70, 210) # Canny edge 알고리즘 # 1:2나 1:3 비율을 추천함 # 수가 작을수록 edge가 많아짐
 
 cv2.imshow('result',canny_img) # Canny 이미지 출력
 cv2.waitKey(0) 
