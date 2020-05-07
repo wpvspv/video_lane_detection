@@ -314,19 +314,17 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
         return final
 
-    while(cap.isOpened()):
-        ret, frame = cap.read()
-        if frame.shape[0] !=540: # resizing for challenge video
-            frame = cv2.resize(frame, None, fx=3/4, fy=3/4, interpolation=cv2.INTER_AREA) 
-        result = detect_lanes_img(frame)
+    ret, frame = cap.read()
+    if frame.shape[0] !=540: # resizing for challenge video
+        frame = cv2.resize(frame, None, fx=3/4, fy=3/4, interpolation=cv2.INTER_AREA) 
+    result = detect_lanes_img(frame)
 
-        cv2.imshow('result',result)
+    cv2.imshow('result',result)
 
-        #out.write(frame)
+    #out.write(frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    cap.release()
-    cv2.destroyAllWindows()
+cap.release()
+cv2.destroyAllWindows()
 
