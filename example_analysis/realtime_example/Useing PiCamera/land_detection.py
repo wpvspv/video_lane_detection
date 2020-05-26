@@ -95,14 +95,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
    #GPIO.output(19, GPIO.LOW)
    time.sleep(0.0)
    image = frame.array
-   height, width = image.shape[:2]
-   vertices = np.array([[(50,height),(width/2-45, height/2+60), (width/2+45, height/2+60), (width-50,height)]], dtype=np.int32)
-   ROI_img = region_of_interest(image, vertices)   
-   gray = grayscale(ROI_img)
-   blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-   edged = cv2.Canny(blurred, 85, 85)
-   vertices2 = np.array([[(52,height),(width/2-43, height/2+62), (width/2+43, height/2+62), (width-52,height)]], dtype=np.int32)
-   edged = region_of_interest(edged, vertices2)
+   edged = detect_lanes_img(image)
    
    lines = cv2.HoughLinesP(edged,1,np.pi/180,10,minLineLength,maxLineGap)
    
